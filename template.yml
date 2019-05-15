@@ -1,0 +1,38 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  # Create Service fun-java
+  fun-java:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'Hello SpringBoot On FC'
+      Policies:
+        - AliyunOSSFullAccess
+        - AliyunLogFullAccess
+
+      LogConfig:
+        Project: hyt-jp-proj
+        Logstore: hyt-store
+
+      InternetAccess: true
+    
+    # Create function demo-springboot
+    demo-springboot:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: com.aliyun.fc.example.HelloSpringBoot::handleRequest
+        Initializer: com.aliyun.fc.example.HelloSpringBoot::initialize
+        Runtime: java8
+        CodeUri: './target/demo-http-trigger-1.0.jar'
+        MemorySize: 256
+        Timeout: 60
+        InitializationTimeout: 60
+      
+      # Create http trigger
+      Events:
+        http: # trigger name
+          Type: HTTP # http trigger
+          Properties:
+              AuthType: ANONYMOUS
+              Methods: ['GET', 'POST']
+
