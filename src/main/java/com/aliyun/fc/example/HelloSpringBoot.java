@@ -16,11 +16,9 @@ import com.aliyun.fc.runtime.HttpRequestHandler;
 public class HelloSpringBoot implements FunctionInitializer, HttpRequestHandler {
     private FcAppLoader fcAppLoader = new FcAppLoader();
 
-    private String ossEndPoint = "${YourOSSEndPoint}";
-    private String bucket = "{YourOSSBucket}";
     private String key = "demo-springboot-hello-1.0.0.war";
     
-    private String userContextPath = "/2016-08-15/proxy/fun-java/demo-springboot";
+    private String userContextPath = "/2016-08-15/proxy/test-java/demo-springboot";
     
     @Override
     public void initialize(Context context) throws IOException {
@@ -28,13 +26,8 @@ public class HelloSpringBoot implements FunctionInitializer, HttpRequestHandler 
         
         fcAppLoader.setFCContext(context);
         
-        // Load code from OSS
-        fcLogger.info("Begin load code: " + key);
-        boolean codeSuccess = fcAppLoader.loadCodeFromOSS(ossEndPoint, bucket, key);
-        if (! codeSuccess) {
-            throw new IOException("Download code failed");
-        }
-        fcLogger.info("End load code");
+        // Load code from local project
+        fcAppLoader.loadCodeFromLocalProject(key);
         
         // Init webapp from code
         long timeBegin = System.currentTimeMillis();

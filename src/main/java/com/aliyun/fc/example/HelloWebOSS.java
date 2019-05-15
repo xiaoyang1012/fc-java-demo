@@ -19,8 +19,11 @@ public class HelloWebOSS implements FunctionInitializer, HttpRequestHandler {
     private String ossEndPoint = "${OSSEndPoint}";
     private String bucket = "${OSSBucket}";
     private String key = "greenhouse.war";
-    
+
+    // Not use custom domain
     //private String userContextPath = "/2016-08-15/proxy/${YourServiceName}/${YourFunctionName}";
+    
+    // Use custom domain
     private String userContextPath = "/greenhouse";
     
     @Override

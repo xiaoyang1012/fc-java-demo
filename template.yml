@@ -1,8 +1,8 @@
 ROSTemplateFormatVersion: '2015-09-01'
 Transform: 'Aliyun::Serverless-2018-04-03'
 Resources:
-  # Create Service fun-java
-  fun-java:
+  # Create Service test-java
+  test-java:
     Type: 'Aliyun::Serverless::Service'
     Properties:
       Description: 'Hello SpringBoot On FC'
