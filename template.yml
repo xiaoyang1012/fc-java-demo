@@ -11,11 +11,30 @@ Resources:
         - AliyunLogFullAccess
 
       LogConfig:
-        Project: hyt-jp-proj
-        Logstore: hyt-store
+        Project: ${YourLogProject}
+        Logstore: ${YourLogStore}
 
       InternetAccess: true
     
+    # Create function http-hello
+    http-hello:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: com.aliyun.fc.example.Hello::handleRequest
+        Runtime: java8
+        CodeUri: './target/demo-http-trigger-1.0.jar'
+        MemorySize: 128
+        Timeout: 60
+        InitializationTimeout: 60
+      
+      # Create http trigger
+      Events:
+        http: # trigger name
+          Type: HTTP # http trigger
+          Properties:
+              AuthType: ANONYMOUS
+              Methods: ['GET', 'POST']
+
     # Create function demo-springboot
     demo-springboot:
       Type: 'Aliyun::Serverless::Function'
