@@ -1,7 +1,7 @@
 ROSTemplateFormatVersion: '2015-09-01'
 Transform: 'Aliyun::Serverless-2018-04-03'
 Resources:
-  # Create Service test-java
+  # Create Service
   demo-fc-service:
     Type: 'Aliyun::Serverless::Service'
     Properties:
@@ -12,7 +12,7 @@ Resources:
 
       InternetAccess: true
 
-    # Create function demo-springboot
+    # Create function
     demo-spring:
       Type: 'Aliyun::Serverless::Function'
       Properties:
