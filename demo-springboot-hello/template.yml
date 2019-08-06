@@ -8,11 +8,6 @@ Resources:
       Description: 'Hello SpringBoot On FC'
       Policies:
         - AliyunOSSFullAccess
-        - AliyunLogFullAccess
-
-      LogConfig:
-        Project: hyt-proj
-        Logstore: hyt-store
 
       InternetAccess: true
 
