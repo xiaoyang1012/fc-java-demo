@@ -1,0 +1,43 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  # Create Service
+  demo-fc-service:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'Hello FC'
+      Policies:
+        - AliyunLogFullAccess
+      
+      #LogConfig:
+        #Project: user-logproj
+        #Logstore: user-logstore
+
+      InternetAccess: true
+
+    # Create function
+    demo-prewarm:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Initializer: com.aliyun.fc.example.Prewarm::initialize
+        Handler: com.aliyun.fc.example.Prewarm::handleRequest
+        Runtime: java8
+        CodeUri: './target/demo-prewarm-1.0.0.jar'
+        MemorySize: 128
+        Timeout: 600
+        InitializationTimeout: 60
+        EnvironmentVariables:
+            'REGION': 'cn-hangzhou'
+            'ACCOUNT': 'XXX'
+            'FUCNTION_NAME': 'XXX'
+            'SERVICE_NAME': 'XXX'
+            'IS_HTTP': 'true'
+            'COUNT': '10'
+      
+      Events:
+        trigger:
+          Type: Timer
+          Properties: 
+            Payload: ""
+            CronExpression: "0 * * * * *"
+            Enable: false
