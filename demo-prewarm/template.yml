@@ -39,5 +39,5 @@ Resources:
           Type: Timer
           Properties: 
             Payload: ""
-            CronExpression: "0 * * * * *"
-            Enable: false
+            CronExpression: "0 5 * * * *"
+            Enable: true
