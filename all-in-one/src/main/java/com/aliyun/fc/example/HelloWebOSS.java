@@ -16,15 +16,13 @@ import com.aliyun.fc.runtime.HttpRequestHandler;
 public class HelloWebOSS implements FunctionInitializer, HttpRequestHandler {
     private FcAppLoader fcAppLoader = new FcAppLoader();
 
-    private String ossEndPoint = "${OSSEndPoint}";
-    private String bucket = "${OSSBucket}";
-    private String key = "greenhouse.war";
-
-    // Not use custom domain
-    //private String userContextPath = "/2016-08-15/proxy/${YourServiceName}/${YourFunctionName}";
+    private String ossEndPoint = System.getenv("OSS_ENDPOINT");
+    private String bucket = System.getenv("BUCKET");
+    private String key = System.getenv("KEY");
     
-    // Use custom domain
-    private String userContextPath = "/greenhouse";
+    // Not use custom domain: "/2016-08-15/proxy/${YourServiceName}/${YourFunctionName}";
+    // Use custom domain: "/greenhouse"
+    private String userContextPath = System.getenv("USER_CONTEXT_PATH");
     
     @Override
     public void initialize(Context context) throws IOException {
