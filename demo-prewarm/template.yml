@@ -9,9 +9,9 @@ Resources:
       Policies:
         - AliyunLogFullAccess
       
-      #LogConfig:
-        #Project: user-logproj
-        #Logstore: user-logstore
+#      LogConfig:
+#        Project: user-logproj
+#        Logstore: user-logstore
 
       InternetAccess: true
 
@@ -19,17 +19,17 @@ Resources:
     demo-prewarm:
       Type: 'Aliyun::Serverless::Function'
       Properties:
-        Initializer: com.aliyun.fc.example.Prewarm::initialize
-        Handler: com.aliyun.fc.example.Prewarm::handleRequest
+        Initializer: com.aliyun.fc.example.PreWarm::initialize
+        Handler: com.aliyun.fc.example.PreWarm::handleRequest
         Runtime: java8
         CodeUri: './target/demo-prewarm-1.0.0.jar'
-        MemorySize: 128
+        MemorySize: 256
         Timeout: 600
         InitializationTimeout: 60
         EnvironmentVariables:
             'REGION': 'cn-hangzhou'
             'ACCOUNT': 'XXX'
-            'FUCNTION_NAME': 'XXX'
+            'FUNCTION_NAME': 'XXX'
             'SERVICE_NAME': 'XXX'
             'IS_HTTP': 'true'
             'COUNT': '10'
@@ -39,5 +39,5 @@ Resources:
           Type: Timer
           Properties: 
             Payload: ""
-            CronExpression: "0 5 * * * *"
+            CronExpression: "@every 5m"
             Enable: true
